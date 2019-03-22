@@ -1,7 +1,7 @@
 # FishReduxTemplate
 
 ## Install
-Down FishReduxTemplate.jar and install
+Download FishReduxTemplate.jar and install
 
 ## How to use
 
