@@ -54,7 +54,7 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
         JPanel template = new JPanel();
         template.setLayout(new FlowLayout());
-        template.setBorder(BorderFactory.createTitledBorder("选择模版"));
+        template.setBorder(BorderFactory.createTitledBorder("Select Template"));
         JRadioButton page = new JRadioButton("Page", true);
         page.setActionCommand("Page");
         page.addActionListener(radioActionListener);
@@ -73,7 +73,7 @@ public class GenerateFishReduxTemplateAction extends AnAction {
 
         JPanel file = new JPanel();
         file.setLayout(new GridLayout(2, 3));
-        file.setBorder(BorderFactory.createTitledBorder("选择生成文件"));
+        file.setBorder(BorderFactory.createTitledBorder("Select Files"));
         actionBox = new JCheckBox("action", true);
         effectBox = new JCheckBox("effect", true);
         reducerBox = new JCheckBox("reducer", true);
@@ -99,8 +99,8 @@ public class GenerateFishReduxTemplateAction extends AnAction {
 
         JPanel nameField = new JPanel();
         nameField.setLayout(new FlowLayout());
-        nameField.setBorder(BorderFactory.createTitledBorder("命名"));
-        JLabel nameLabel = new JLabel("模块名：");
+        nameField.setBorder(BorderFactory.createTitledBorder("Naming"));
+        JLabel nameLabel = new JLabel("Module Name：");
         nameTextField = new JTextField();
         nameField.add(nameLabel);
         nameField.add(nameTextField);
@@ -110,11 +110,11 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         menu.setLayout(new FlowLayout());
 
         Button cancle = new Button();
-        cancle.setLabel("取消");
+        cancle.setLabel("Cancel");
         cancle.addActionListener(actionListener);
 
         Button ok = new Button();
-        ok.setLabel("确定");
+        ok.setLabel("Confirm");
         ok.addActionListener(actionListener);
         menu.add(cancle);
         menu.add(ok);
@@ -129,16 +129,16 @@ public class GenerateFishReduxTemplateAction extends AnAction {
     private ActionListener actionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
-            if (e.getActionCommand().equals("取消")) {
+            if (e.getActionCommand().equals("Cancel")) {
                 jFrame.dispose();
             } else {
                 if (nameTextField.getText() == null || "".equals(nameTextField.getText().trim())) {
-                    Messages.showInfoMessage(project, "请输入模块名", "提示");
+                    Messages.showInfoMessage(project, "Please enter the module name", "Info");
                     return;
                 }
                 jFrame.dispose();
                 clickCreateFile();
-                Messages.showInfoMessage(project, "生成完毕", "提示");
+                Messages.showInfoMessage(project, "Enjoy yourself", "Info");
             }
         }
     };
