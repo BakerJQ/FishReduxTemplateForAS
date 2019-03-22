@@ -1,0 +1,39 @@
+<idea-plugin>
+    <id>com.bakerj.flutter.fishreduxtemplate.id</id>
+    <name>FishReduxTemplate</name>
+    <version>1.0</version>
+    <vendor email="305317218@qq.com" url="https://github.com/BakerJQ/FishReduxTemplateForAS">BakerJ</vendor>
+
+    <description><![CDATA[
+      Template Code Generator for Fish Redux<br>
+      <em></em>
+    ]]></description>
+
+    <change-notes><![CDATA[
+      <br>
+      <em></em>
+    ]]>
+    </change-notes>
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
+    <idea-version since-build="173.0" />
+
+    <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/plugin_compatibility.html
+         on how to target different products -->
+    <!-- uncomment to enable plugin in all products
+    <depends>com.intellij.modules.lang</depends>
+    -->
+
+    <extensions defaultExtensionNs="com.intellij">
+        <!-- Add your extensions here -->
+    </extensions>
+
+    <actions>
+        <!-- Add your actions here -->
+        <action id="FishReduxTemplate.ID" class="generator.GenerateFishReduxTemplateAction" text="FishReduxTemplate"
+            description="a plugin to generate Fish Redux template code">
+            <add-to-group group-id="NewGroup" anchor="before" relative-to-action="NewFromTemplate"/>
+        </action>
+    </actions>
+
+</idea-plugin>
