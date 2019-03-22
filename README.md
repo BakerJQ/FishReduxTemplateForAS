@@ -18,4 +18,4 @@ Choose your template and enter
 ### Step 3
 Enjoy yourself
 
-![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/package.png?raw=true)
+![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/result.png?raw=true)
