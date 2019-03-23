@@ -2,7 +2,7 @@
 
 ![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/logo.png?raw=true)
 
-## Preview
+## Gif Preview
 
 ![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/preview.gif?raw=true)
 
