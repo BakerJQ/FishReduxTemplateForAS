@@ -25,3 +25,7 @@ Choose your template and enter the module name
 Enjoy yourself
 
 ![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/result.png?raw=true)
+
+## Template for VSCode
+
+https://github.com/huangjianke/fish-redux-template
