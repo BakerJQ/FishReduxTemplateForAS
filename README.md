@@ -19,3 +19,7 @@ Choose your template and enter
 Enjoy yourself
 
 ![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/result.png?raw=true)
+
+## Preview
+
+![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/preview.gif?raw=true)
