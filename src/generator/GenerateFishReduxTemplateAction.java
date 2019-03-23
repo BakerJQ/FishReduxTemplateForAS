@@ -251,6 +251,9 @@ public class GenerateFishReduxTemplateAction extends AnAction {
 
     private String dealFile(String content) {
         content = content.replaceAll("\\$name", nameTextField.getText());
+        if(!actionBox.isSelected()){
+            content = content.replaceAll("import\\s'action.dart';\\s+", "");
+        }
         if(!effectBox.isSelected()){
             content = content.replaceAll("effect:\\s+buildEffect\\(\\),\\s+", "");
             content = content.replaceAll("import\\s'effect.dart';\\s+", "");
@@ -258,6 +261,12 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         if(!reducerBox.isSelected()){
             content = content.replaceAll("reducer:\\s+buildReducer\\(\\),\\s+", "");
             content = content.replaceAll("import\\s+'reducer.dart';\\s+", "");
+        }
+        if(!stateBox.isSelected()){
+            content = content.replaceAll("import\\s+'state.dart';\\s+", "");
+        }
+        if(!viewBox.isSelected()){
+            content = content.replaceAll("import\\s+'view.dart';\\s+", "");
         }
         return content;
     }
