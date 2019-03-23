@@ -6,14 +6,10 @@
 
     <description><![CDATA[
       Template Code Generator for Fish Redux<br>
+      How to use:<br>
+      Select the package folder, right click -> New -> FishReduxTemplate
       <em></em>
     ]]></description>
-
-    <change-notes><![CDATA[
-      <br>
-      <em></em>
-    ]]>
-    </change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
     <idea-version since-build="173.0" />
