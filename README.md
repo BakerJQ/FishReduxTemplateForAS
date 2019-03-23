@@ -17,7 +17,7 @@ Select your package and New->FishReduxTemplate
 ![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/package.png?raw=true)
 
 ### Step 2
-Choose your template and enter 
+Choose your template and enter the module name
 
 ![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/modal.png?raw=true)
 
