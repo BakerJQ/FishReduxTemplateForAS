@@ -7,7 +7,9 @@
 ![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/preview.gif?raw=true)
 
 ## Install
-Download FishReduxTemplate.jar and install
+Search in plugin repositories
+
+![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/search.png?raw=true)
 
 ## How to use
 
