@@ -7,7 +7,7 @@
 ![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/preview.gif?raw=true)
 
 ## Install
-Search in plugin repositories
+Search in plugin repositories and install
 
 ![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/search.png?raw=true)
 
