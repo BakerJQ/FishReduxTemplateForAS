@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.bakerj.flutter.fishreduxtemplate.id</id>
     <name>FishReduxTemplate</name>
-    <version>1.0</version>
+    <version>1.1</version>
     <vendor email="305317218@qq.com" url="https://github.com/BakerJQ/FishReduxTemplateForAS">BakerJ</vendor>
 
     <description><![CDATA[
@@ -10,6 +10,12 @@
       Select the package folder, right click -> New -> FishReduxTemplate
       <em></em>
     ]]></description>
+
+    <change-notes><![CDATA[
+      Fix bug: <br>
+      1. In some version of Android Studio, the project dir won't be refresh after file generated
+      <em></em>
+    ]]></change-notes>
 
     <!-- please see http://www.jetbrains.org/intellij/sdk/docs/basics/getting_started/build_number_ranges.html for description -->
     <idea-version since-build="173.0" />
