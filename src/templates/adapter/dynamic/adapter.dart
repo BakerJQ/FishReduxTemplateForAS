@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 
-import '../state.dart';
 import 'reducer.dart';
+import 'state.dart';
 
 class $nameAdapter extends DynamicFlowAdapter<$nameState> {
   $nameAdapter()
@@ -13,7 +13,7 @@ class $nameAdapter extends DynamicFlowAdapter<$nameState> {
         );
 }
 
-class _$nameConnector implements Connector<$nameState, List<ItemBean>> {
+class _$nameConnector extends ConnOp<$nameState, List<ItemBean>> {
   @override
   List<ItemBean> get($nameState state) {
     return <ItemBean>[];
@@ -21,5 +21,11 @@ class _$nameConnector implements Connector<$nameState, List<ItemBean>> {
 
   @override
   void set($nameState state, List<ItemBean> items) {
+  }
+
+  @override
+  subReducer(reducer) {
+    // TODO: implement subReducer
+    return super.subReducer(reducer);
   }
 }

@@ -5,13 +5,18 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
+import com.intellij.ui.JBColor;
 
 import org.jetbrains.annotations.NotNull;
 
 import java.awt.Button;
+import java.awt.Color;
 import java.awt.Container;
 import java.awt.FlowLayout;
+import java.awt.Font;
 import java.awt.GridLayout;
+import java.awt.Label;
+import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
@@ -24,6 +29,7 @@ import java.io.InputStream;
 import javax.swing.BorderFactory;
 import javax.swing.BoxLayout;
 import javax.swing.ButtonGroup;
+import javax.swing.JButton;
 import javax.swing.JCheckBox;
 import javax.swing.JDialog;
 import javax.swing.JLabel;
@@ -53,22 +59,31 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         Container container = jFrame.getContentPane();
         container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
         JPanel template = new JPanel();
-        template.setLayout(new FlowLayout());
+        template.setLayout(new GridLayout(2, 3));
         template.setBorder(BorderFactory.createTitledBorder("Select Template"));
         JRadioButton page = new JRadioButton("Page", true);
         page.setActionCommand("Page");
         page.addActionListener(radioActionListener);
         JRadioButton component = new JRadioButton("Component");
         component.setActionCommand("Component");
-        JRadioButton adapter = new JRadioButton("Adapter");
-        adapter.setActionCommand("Adapter");
+        JRadioButton dynamicFlowAdapter = new JRadioButton("DynamicFlowAdapter");
+        dynamicFlowAdapter.setActionCommand("DynamicFlowAdapter");
+        JRadioButton staticFlowAdapter = new JRadioButton("StaticFlowAdapter");
+        staticFlowAdapter.setActionCommand("StaticFlowAdapter");
+        JRadioButton customAdapter = new JRadioButton("CustomAdapter");
+        customAdapter.setActionCommand("CustomAdapter");
         template.add(page);
         template.add(component);
-        template.add(adapter);
+        template.add(new Label());
+        template.add(dynamicFlowAdapter);
+        template.add(staticFlowAdapter);
+        template.add(customAdapter);
         templateGroup = new ButtonGroup();
         templateGroup.add(page);
         templateGroup.add(component);
-        templateGroup.add(adapter);
+        templateGroup.add(dynamicFlowAdapter);
+        templateGroup.add(staticFlowAdapter);
+        templateGroup.add(customAdapter);
         container.add(template);
 
         JPanel file = new JPanel();
@@ -101,7 +116,7 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         nameField.setLayout(new FlowLayout());
         nameField.setBorder(BorderFactory.createTitledBorder("Naming"));
         JLabel nameLabel = new JLabel("Module Name：");
-        nameTextField = new JTextField();
+        nameTextField = new JTextField(30);
         nameField.add(nameLabel);
         nameField.add(nameTextField);
         container.add(nameField);
@@ -109,18 +124,18 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         JPanel menu = new JPanel();
         menu.setLayout(new FlowLayout());
 
-        Button cancle = new Button();
-        cancle.setLabel("Cancel");
-        cancle.addActionListener(actionListener);
+        JButton cancel = new JButton("Cancel");
+        cancel.setForeground(JBColor.RED);
+        cancel.addActionListener(actionListener);
 
-        Button ok = new Button();
-        ok.setLabel("Confirm");
+        JButton ok = new JButton("OK");
+        ok.setForeground(JBColor.GREEN);
         ok.addActionListener(actionListener);
-        menu.add(cancle);
+        menu.add(cancel);
         menu.add(ok);
         container.add(menu);
 
-        jFrame.setSize(400, 300);
+        jFrame.setSize(500, 300);
         jFrame.setLocationRelativeTo(null);
 
         jFrame.setVisible(true);
@@ -181,8 +196,14 @@ public class GenerateFishReduxTemplateAction extends AnAction {
             case "Component":
                 generateComponent();
                 break;
-            case "Adapter":
-                generateAdapter();
+            case "DynamicFlowAdapter":
+                generateDynamicAdapter();
+                break;
+            case "StaticFlowAdapter":
+                generateStaticAdapter();
+                break;
+            case "CustomAdapter":
+                generateCustomAdapter();
                 break;
         }
     }
@@ -197,8 +218,18 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         generateCommonFiles();
     }
 
-    private void generateAdapter() {
-        generateFile("adapter/adapter.dart", psiPath, "adapter.dart");
+    private void generateDynamicAdapter() {
+        generateFile("adapter/dynamic/adapter.dart", psiPath, "adapter.dart");
+        generateCommonFiles();
+    }
+
+    private void generateStaticAdapter() {
+        generateFile("adapter/static/adapter.dart", psiPath, "adapter.dart");
+        generateCommonFiles();
+    }
+
+    private void generateCustomAdapter() {
+        generateFile("adapter/custom/adapter.dart", psiPath, "adapter.dart");
         generateCommonFiles();
     }
 
