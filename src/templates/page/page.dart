@@ -16,7 +16,7 @@ class $namePage extends Page<$nameState, Map<String, dynamic>> {
                 adapter: null,
                 slots: <String, Dependent<$nameState>>{
                 }),
-            middlewares: <Middleware<$nameState>>[
+            middleware: <Middleware<$nameState>>[
             ],);
 
 }
