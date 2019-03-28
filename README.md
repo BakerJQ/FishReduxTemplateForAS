@@ -7,7 +7,9 @@
 ![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/preview.gif?raw=true)
 
 ## Install
-Search in plugin repositories and install
+Search in plugin repositories and install 
+
+[[JetBrains Plugin Page for FishReduxTemplate]](https://plugins.jetbrains.com/plugin/12139-fishreduxtemplate)
 
 ![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/search.png?raw=true)
 
