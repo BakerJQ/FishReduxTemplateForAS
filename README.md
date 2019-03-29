@@ -9,7 +9,7 @@
 ## Install
 Search in plugin repositories and install 
 
-[[JetBrains Plugin Page for FishReduxTemplate]](https://plugins.jetbrains.com/plugin/12139-fishreduxtemplate)
+Or download jar from [[JetBrains Plugin Page for FishReduxTemplate]](https://plugins.jetbrains.com/plugin/12139-fishreduxtemplate)
 
 ![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/search.png?raw=true)
 
