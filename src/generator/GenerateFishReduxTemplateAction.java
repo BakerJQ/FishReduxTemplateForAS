@@ -165,11 +165,15 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         }
     };
 
-    private ActionListener actionListener = e -> {
-        if (e.getActionCommand().equals("Cancel")) {
-            dispose();
-        } else {
-            save();
+
+    private ActionListener actionListener = new ActionListener() {
+        @Override
+        public void actionPerformed(ActionEvent e) {
+            if (e.getActionCommand().equals("Cancel")) {
+                dispose();
+            } else {
+                save();
+            }
         }
     };
 
