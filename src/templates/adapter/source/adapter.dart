@@ -4,13 +4,11 @@ import '$prefix_effect.dart';
 import '$prefix_reducer.dart';
 import '$prefix_state.dart';
 
-class $nameAdapter extends StaticFlowAdapter<$nameState> {
+class $nameAdapter extends SourceFlowAdapter<$nameState> {
   $nameAdapter()
       : super(
-          slots:<Dependent<$nameState>>[
-
-          ],
-          effect: buildEffect(),
+          pool: <String, Component<Object>>{},
           reducer: buildReducer(),
+          effect: buildEffect(),
         );
 }

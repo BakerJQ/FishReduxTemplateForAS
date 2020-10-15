@@ -1,7 +1,7 @@
 import 'package:fish_redux/fish_redux.dart';
 
-import 'action.dart';
-import 'state.dart';
+import '$prefix_action.dart';
+import '$prefix_state.dart';
 
 Reducer<$nameState> buildReducer() {
   return asReducer(

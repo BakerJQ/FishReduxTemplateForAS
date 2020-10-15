@@ -1,9 +1,9 @@
 import 'package:fish_redux/fish_redux.dart';
 import 'package:flutter/widgets.dart';
 
-import 'effect.dart';
-import 'reducer.dart';
-import 'state.dart';
+import '$prefix_effect.dart';
+import '$prefix_reducer.dart';
+import '$prefix_state.dart';
 
 class $nameAdapter extends Adapter<$nameState> {
   $nameAdapter()

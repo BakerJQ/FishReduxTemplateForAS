@@ -1,9 +1,9 @@
 import 'package:fish_redux/fish_redux.dart';
 
-import 'effect.dart';
-import 'reducer.dart';
-import 'state.dart';
-import 'view.dart';
+import '$prefix_effect.dart';
+import '$prefix_reducer.dart';
+import '$prefix_state.dart';
+import '$prefix_view.dart';
 
 class $nameComponent extends Component<$nameState> {
   $nameComponent()

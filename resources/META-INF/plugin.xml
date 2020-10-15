@@ -1,7 +1,7 @@
 <idea-plugin>
     <id>com.bakerj.flutter.fishreduxtemplate.id</id>
     <name>FishReduxTemplate</name>
-    <version>1.2.1</version>
+    <version>1.3.0</version>
     <vendor email="305317218@qq.com" url="https://github.com/BakerJQ/FishReduxTemplateForAS">BakerJ</vendor>
 
     <description><![CDATA[
@@ -13,7 +13,9 @@
 
     <change-notes><![CDATA[
       Changes: <br>
-      1. Fix the problem of in some version of AS, can't find FishReduxTemplate action <br>
+      1. Support fish-redux 0.3.x <br>
+      2. Support AndroidStudio 4.1 <br>
+      3. Now you can make your module name as your filename prefix <br>
       <em></em>
     ]]></change-notes>
 
@@ -29,6 +31,8 @@
     <extensions defaultExtensionNs="com.intellij">
         <!-- Add your extensions here -->
     </extensions>
+
+    <depends>com.intellij.modules.java-capable</depends>
 
     <actions>
         <!-- Add your actions here -->

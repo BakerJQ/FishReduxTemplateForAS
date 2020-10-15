@@ -5,18 +5,15 @@ import com.intellij.openapi.actionSystem.AnActionEvent;
 import com.intellij.openapi.actionSystem.PlatformDataKeys;
 import com.intellij.openapi.project.Project;
 import com.intellij.openapi.ui.Messages;
-import com.intellij.ui.JBColor;
 
 import org.jetbrains.annotations.NotNull;
 
-import java.awt.Button;
 import java.awt.Color;
 import java.awt.Container;
+import java.awt.Dimension;
 import java.awt.FlowLayout;
-import java.awt.Font;
 import java.awt.GridLayout;
 import java.awt.Label;
-import java.awt.Rectangle;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
 import java.io.BufferedWriter;
@@ -42,8 +39,10 @@ public class GenerateFishReduxTemplateAction extends AnAction {
     private String psiPath;
     private JDialog jFrame;
     private JTextField nameTextField;
-    private ButtonGroup templateGroup;
+    private JRadioButton mutable, immutable;
+    private ButtonGroup templateGroup, sourceAdapterGroup;
     private JCheckBox actionBox, effectBox, reducerBox, stateBox, viewBox;
+    private JCheckBox prefixBox;
 
     @Override
     public void actionPerformed(@NotNull AnActionEvent e) {
@@ -56,34 +55,55 @@ public class GenerateFishReduxTemplateAction extends AnAction {
     private void initView() {
         jFrame = new JDialog();
         jFrame.setModal(true);
+        jFrame.setMinimumSize(new Dimension(500, 400));
         Container container = jFrame.getContentPane();
         container.setLayout(new BoxLayout(container, BoxLayout.PAGE_AXIS));
         JPanel template = new JPanel();
-        template.setLayout(new GridLayout(2, 3));
+        template.setLayout(new GridLayout(3, 3));
         template.setBorder(BorderFactory.createTitledBorder("Select Template"));
         JRadioButton page = new JRadioButton("Page", true);
         page.setActionCommand("Page");
         page.addActionListener(radioActionListener);
         JRadioButton component = new JRadioButton("Component");
         component.setActionCommand("Component");
-        JRadioButton dynamicFlowAdapter = new JRadioButton("DynamicFlowAdapter");
-        dynamicFlowAdapter.setActionCommand("DynamicFlowAdapter");
+        component.addActionListener(radioActionListener);
+        JRadioButton sourceFlowAdapter = new JRadioButton("SourceFlowAdapter");
+        sourceFlowAdapter.setActionCommand("SourceFlowAdapter");
+        sourceFlowAdapter.addActionListener(radioActionListener);
+        mutable = new JRadioButton("mutable");
+        mutable.setActionCommand("mutable");
+        mutable.setEnabled(false);
+        mutable.setSelected(true);
+        immutable = new JRadioButton("immutable");
+        immutable.setActionCommand("immutable");
+        immutable.setEnabled(false);
+//        JRadioButton dynamicFlowAdapter = new JRadioButton("DynamicFlowAdapter(deprecated)");
+//        dynamicFlowAdapter.setActionCommand("DynamicFlowAdapter");
         JRadioButton staticFlowAdapter = new JRadioButton("StaticFlowAdapter");
         staticFlowAdapter.setActionCommand("StaticFlowAdapter");
+        staticFlowAdapter.addActionListener(radioActionListener);
         JRadioButton customAdapter = new JRadioButton("CustomAdapter");
         customAdapter.setActionCommand("CustomAdapter");
+        customAdapter.addActionListener(radioActionListener);
         template.add(page);
         template.add(component);
         template.add(new Label());
-        template.add(dynamicFlowAdapter);
+        template.add(sourceFlowAdapter);
+        template.add(mutable);
+        template.add(immutable);
+//        template.add(dynamicFlowAdapter);
         template.add(staticFlowAdapter);
         template.add(customAdapter);
         templateGroup = new ButtonGroup();
         templateGroup.add(page);
         templateGroup.add(component);
-        templateGroup.add(dynamicFlowAdapter);
+        templateGroup.add(sourceFlowAdapter);
+//        templateGroup.add(dynamicFlowAdapter);
         templateGroup.add(staticFlowAdapter);
         templateGroup.add(customAdapter);
+        sourceAdapterGroup = new ButtonGroup();
+        sourceAdapterGroup.add(mutable);
+        sourceAdapterGroup.add(immutable);
         container.add(template);
 
         JPanel file = new JPanel();
@@ -119,17 +139,19 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         nameTextField = new JTextField(30);
         nameField.add(nameLabel);
         nameField.add(nameTextField);
+        prefixBox = new JCheckBox("make name as filename prefix");
+        nameField.add(prefixBox);
         container.add(nameField);
 
         JPanel menu = new JPanel();
         menu.setLayout(new FlowLayout());
 
         JButton cancel = new JButton("Cancel");
-        cancel.setForeground(JBColor.RED);
+        cancel.setForeground(Color.RED);
         cancel.addActionListener(actionListener);
 
         JButton ok = new JButton("OK");
-        ok.setForeground(JBColor.GREEN);
+        ok.setForeground(Color.GREEN);
         ok.addActionListener(actionListener);
         menu.add(cancel);
         menu.add(ok);
@@ -177,13 +199,22 @@ public class GenerateFishReduxTemplateAction extends AnAction {
                     stateBox.setSelected(true);
                     viewBox.setSelected(true);
                     break;
-                case "Adapter":
+                case "SourceFlowAdapter":
+                case "StaticFlowAdapter":
+                case "CustomAdapter":
                     actionBox.setSelected(true);
                     effectBox.setSelected(false);
                     reducerBox.setSelected(true);
-                    stateBox.setSelected(false);
+                    stateBox.setSelected(true);
                     viewBox.setSelected(false);
                     break;
+            }
+            if (e.getActionCommand().equals("SourceFlowAdapter")) {
+                mutable.setEnabled(true);
+                immutable.setEnabled(true);
+            } else {
+                mutable.setEnabled(false);
+                immutable.setEnabled(false);
             }
         }
     };
@@ -196,9 +227,12 @@ public class GenerateFishReduxTemplateAction extends AnAction {
             case "Component":
                 generateComponent();
                 break;
-            case "DynamicFlowAdapter":
-                generateDynamicAdapter();
+            case "SourceFlowAdapter":
+                generateSourceFlowAdapter();
                 break;
+//            case "DynamicFlowAdapter":
+//                generateDynamicAdapter();
+//                break;
             case "StaticFlowAdapter":
                 generateStaticAdapter();
                 break;
@@ -223,6 +257,18 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         generateCommonFiles();
     }
 
+    private void generateSourceFlowAdapter() {
+        generateFile("adapter/source/adapter.dart", psiPath, "adapter.dart");
+        if (stateBox.isSelected()) {
+            if (sourceAdapterGroup.getSelection().getActionCommand().equals("mutable")) {
+                generateFile("adapter/source/state_mutable.dart", psiPath, "state.dart");
+            } else {
+                generateFile("adapter/source/state_immutable.dart", psiPath, "state.dart");
+            }
+        }
+        generateCommonFiles(false);
+    }
+
     private void generateStaticAdapter() {
         generateFile("adapter/static/adapter.dart", psiPath, "adapter.dart");
         generateCommonFiles();
@@ -233,23 +279,35 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         generateCommonFiles();
     }
 
-    private void generateCommonFiles() {
+    private void generateCommonFiles(boolean withState) {
         if (actionBox.isSelected())
             generateFile("action.dart", psiPath, "action.dart");
         if (effectBox.isSelected())
             generateFile("effect.dart", psiPath, "effect.dart");
         if (reducerBox.isSelected())
             generateFile("reducer.dart", psiPath, "reducer.dart");
-        if (stateBox.isSelected())
+        if (withState && stateBox.isSelected())
             generateFile("state.dart", psiPath, "state.dart");
         if (viewBox.isSelected())
             generateFile("view.dart", psiPath, "view.dart");
     }
 
+    private void generateCommonFiles() {
+        generateCommonFiles(true);
+    }
+
     private void generateFile(String srcFile, String filePath, String fileName) {
         String content = readFile(srcFile);
-        content = dealFile(content);
-        writetoFile(content, filePath, fileName);
+        String prefix = "";
+        if (prefixBox.isSelected()) {
+            prefix = nameTextField.getText().replaceAll("[A-Z]", "_$0").toLowerCase();
+            if(prefix.startsWith("_")){
+                prefix = prefix.substring(1);
+            }
+            prefix = prefix + "_";
+        }
+        content = dealFile(content, prefix);
+        writetoFile(content, filePath, prefix + fileName);
     }
 
     private String readFile(String filename) {
@@ -281,24 +339,24 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         return outSteam.toByteArray();
     }
 
-    private String dealFile(String content) {
-        content = content.replaceAll("\\$name", nameTextField.getText());
+    private String dealFile(String content, String prefix) {
+        content = content.replaceAll("\\$name", nameTextField.getText()).replaceAll("\\$prefix_", prefix);
         if (!actionBox.isSelected()) {
-            content = content.replaceAll("import\\s'action.dart';\\s+", "");
+            content = content.replaceAll("import\\s'"+prefix+"action.dart';\\s+", "");
         }
         if (!effectBox.isSelected()) {
             content = content.replaceAll("effect:\\s+buildEffect\\(\\),\\s+", "");
-            content = content.replaceAll("import\\s'effect.dart';\\s+", "");
+            content = content.replaceAll("import\\s'"+prefix+"effect.dart';\\s+", "");
         }
         if (!reducerBox.isSelected()) {
             content = content.replaceAll("reducer:\\s+buildReducer\\(\\),\\s+", "");
-            content = content.replaceAll("import\\s+'reducer.dart';\\s+", "");
+            content = content.replaceAll("import\\s+'"+prefix+"reducer.dart';\\s+", "");
         }
         if (!stateBox.isSelected()) {
-            content = content.replaceAll("import\\s+'state.dart';\\s+", "");
+            content = content.replaceAll("import\\s+'"+prefix+"state.dart';\\s+", "");
         }
         if (!viewBox.isSelected()) {
-            content = content.replaceAll("import\\s+'view.dart';\\s+", "");
+            content = content.replaceAll("import\\s+'"+prefix+"view.dart';\\s+", "");
         }
         return content;
     }
