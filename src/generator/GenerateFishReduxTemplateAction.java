@@ -16,6 +16,8 @@ import java.awt.GridLayout;
 import java.awt.Label;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.awt.event.KeyListener;
 import java.io.BufferedWriter;
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -137,6 +139,7 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         nameField.setBorder(BorderFactory.createTitledBorder("Naming"));
         JLabel nameLabel = new JLabel("Module Name：");
         nameTextField = new JTextField(30);
+        nameTextField.addKeyListener(keyListener);
         nameField.add(nameLabel);
         nameField.add(nameTextField);
         prefixBox = new JCheckBox("make name as filename prefix");
@@ -162,21 +165,36 @@ public class GenerateFishReduxTemplateAction extends AnAction {
 
         jFrame.setVisible(true);
     }
+    private KeyListener keyListener = new KeyListener() {
+        @Override
+        public void keyTyped(KeyEvent e) {
+
+        }
+
+        @Override
+        public void keyPressed(KeyEvent e) {
+            if (e.getKeyCode() == KeyEvent.VK_ENTER) {
+                save();
+            }
+            if (e.getKeyCode() == KeyEvent.VK_ESCAPE) {
+                dispose();
+            }
+        }
+
+        @Override
+        public void keyReleased(KeyEvent e) {
+
+        }
+    };
+
 
     private ActionListener actionListener = new ActionListener() {
         @Override
         public void actionPerformed(ActionEvent e) {
             if (e.getActionCommand().equals("Cancel")) {
-                jFrame.dispose();
+                dispose();
             } else {
-                if (nameTextField.getText() == null || "".equals(nameTextField.getText().trim())) {
-                    Messages.showInfoMessage(project, "Please enter the module name", "Info");
-                    return;
-                }
-                jFrame.dispose();
-                clickCreateFile();
-                project.getProjectFile().refresh(false, true);
-                Messages.showInfoMessage(project, "Enjoy yourself", "Info");
+                save();
             }
         }
     };
@@ -218,6 +236,20 @@ public class GenerateFishReduxTemplateAction extends AnAction {
             }
         }
     };
+
+    private void dispose() {
+        jFrame.dispose();
+    }
+    private void save() {
+        if (nameTextField.getText() == null || "".equals(nameTextField.getText().trim())) {
+            Messages.showInfoMessage(project, "Please enter the module name", "Info");
+            return;
+        }
+        dispose();
+        clickCreateFile();
+        project.getProjectFile().refresh(false, true);
+        Messages.showInfoMessage(project, "Enjoy yourself", "Info");
+    }
 
     private void clickCreateFile() {
         switch (templateGroup.getSelection().getActionCommand()) {
@@ -383,15 +415,3 @@ public class GenerateFishReduxTemplateAction extends AnAction {
         }
     }
 }
-
-
-
-
-
-
-
-
-
-
-
-
