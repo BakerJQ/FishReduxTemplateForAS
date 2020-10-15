@@ -32,7 +32,7 @@
         <!-- Add your extensions here -->
     </extensions>
 
-    <depends>com.intellij.modules.androidstudio</depends>
+    <depends>com.intellij.modules.all</depends>
 
     <actions>
         <!-- Add your actions here -->
