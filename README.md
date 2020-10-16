@@ -1,3 +1,5 @@
+[![](https://img.shields.io/jetbrains/plugin/v/12139-fishreduxtemplate)](https://plugins.jetbrains.com/plugin/12139-fishreduxtemplate) [![](https://img.shields.io/jetbrains/plugin/d/12139-fishreduxtemplate)](https://plugins.jetbrains.com/plugin/12139-fishreduxtemplate) [![](https://img.shields.io/jetbrains/plugin/r/rating/12139-fishreduxtemplate)](https://plugins.jetbrains.com/plugin/12139-fishreduxtemplate)
+
 # FishReduxTemplate
 
 ![](https://github.com/BakerJQ/FishReduxTemplateForAS/blob/master/screenshots/logo.png?raw=true)
